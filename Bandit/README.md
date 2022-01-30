@@ -9,7 +9,7 @@
 * Solution -
 
 ```shell
-ssh bandit.labs.overthewire.org -p 2220 -l bandit0
+ssh bandit.labs.overthewire.org -p 2220 -l bandit0 #enter password (bandit0)
 ```
 
 ## Level 1
@@ -23,9 +23,95 @@ ssh bandit.labs.overthewire.org -p 2220 -l bandit0
 ```shell
 ls #show list of files, in this case, readme
 
-cat readme #show content of readme, copy the password from file
+cat readme #show content of readme
+#copy the password (boJ9jbbUNNfktd78OOpsqOltutMc3MY1)
 
 exit #exit current ssh session
 
 ssh bandit.labs.overthewire.org -p 2220 -l bandit1 #enter copied password
+```
+
+## Level 2
+
+* Goal - The password for the next level is stored in a file called - located in the home directory.
+
+* Commands - ls, cd, cat, file, du, find
+
+* Solution -
+
+```shell
+ls
+
+cat ./- #filename is -, copy password (CV1DtqXWVFXTvM2F0k09SHz0YwRINYA9)
+
+exit
+
+ssh bandit.labs.overthewire.org -p 2220 -l bandit2
+```
+
+## Level 3
+
+* Goal - The password for the next level is stored in a file called spaces in this filename located in the home directory.
+
+* Commands - ls, cd, cat, file, du, find
+
+* Solution -
+
+```shell
+ls
+
+cat "spaces in this filename" #password (UmHadQclWmgdLOKQ3YNgjWxGoRMb5luK)
+
+exit
+
+ssh bandit.labs.overthewire.org -p 2220 -l bandit3
+```
+
+## Level 4
+
+* Goal - The password for the next level is stored in a hidden file in the inhere directory.
+
+* Commands - ls, cd, cat, file, du, find
+
+* Solution -
+
+```shell
+ls
+
+cd inhere/
+
+ls -a #shows all files, including hidden file (with prefix .)
+
+cat .hidden #password (pIwrPrtPN36QITSp3EQaw936yaFoFgAB)
+
+exit
+
+ssh bandit.labs.overthewire.org -p 2220 -l bandit4
+```
+
+## Level 5
+
+* Goal - The password for the next level is stored in the only human-readable file in the inhere directory. Tip: if your terminal is messed up, try the “reset” command.
+
+* Commands - ls, cd, cat, file, du, find
+
+* Solution -
+
+```shell
+ls
+
+cd inhere/
+
+ls #shows all files, we need only human-readable file
+
+cd .. #return to parent directory
+
+file inhere/* #shows file-type for all files inside inhere/
+#shows that -file07 is human-readable
+
+cd inhere/
+
+cat ./-file07 #password (koReBOKuIDDepwhWk7jZC0RTdopnAYKh)
+
+ssh bandit.labs.overthewire.org -p 2220 -l bandit5
 ```
