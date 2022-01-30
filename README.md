@@ -1,6 +1,8 @@
 # OverTheWire - Wargames
 
-* This is a repository for maintaining the solutions to the wargames of [OverTheWire](https://overthewire.org/wargames/)
+* This is a repository for maintaining the writeups for the wargames of [OverTheWire](https://overthewire.org/wargames/)
+
+* The writeups will contain spoilers, including passwords. Hence proceed forward with caution.
 
 * Wargames:
 
