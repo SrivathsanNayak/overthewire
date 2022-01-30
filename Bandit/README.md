@@ -113,5 +113,56 @@ cd inhere/
 
 cat ./-file07 #password (koReBOKuIDDepwhWk7jZC0RTdopnAYKh)
 
+exit
+
 ssh bandit.labs.overthewire.org -p 2220 -l bandit5
+```
+
+## Level 6
+
+* Goal - The password for the next level is stored in a file somewhere under the inhere directory and has all of the following properties:
+
+    human-readable, 1033 bytes in size, not executable
+
+* Commands - ls, cd, cat, file, du, find
+
+* Solution -
+
+```shell
+ls
+
+cd inhere/
+
+find . -type f -size 1033c #1033 bytes, file type, shows one file
+
+cat ./maybehere07/.file2 #password (DXjZPULLxYr17uwoI01bNLQbtFemEgo7)
+
+exit
+
+ssh bandit.labs.overthewire.org -p 2220 -l bandit6
+```
+
+## Level 7
+
+* Goal - The password for the next level is stored somewhere on the server and has all of the following properties:
+
+    owned by user bandit7, owned by group bandit6, 33 bytes in size
+
+* Commands - ls, cd, cat, file, du, find, grep
+
+* Solution -
+
+```shell
+ls -a #shows all files
+
+find / -user bandit7 -group bandit6 -size 33c -type f 2> /dev/null
+#here, / used to search all files and directories
+#-user and -group field to search file owned by given user and group
+#2> is used for stderr, so that error messages are sent to /dev/null
+
+cat /var/lib/dpkg/info/bandit7.password #password (HKBPTKQnIay4Fw76bEy8PVxKEDQRKTzs)
+
+exit
+
+ssh bandit.labs.overthewire.org -p 2220 -l bandit7
 ```
