@@ -166,3 +166,82 @@ exit
 
 ssh bandit.labs.overthewire.org -p 2220 -l bandit7
 ```
+
+## Level 8
+
+* Goal - The password for the next level is stored in the file data.txt next to the word millionth.
+
+* Commands - grep, sort, uniq, strings, base64, tr, tar, gzip, bzip2, xxd
+
+* Solution -
+
+```shell
+ls
+
+grep millionth data.txt #shows line with the word 'millionth'
+#password (cvX2JJa4CFALtqS87jk27qwqGhBM9plV)
+
+exit
+
+ssh bandit.labs.overthewire.org -p 2220 -l bandit8
+```
+
+## Level 9
+
+* Goal - The password for the next level is stored in the file data.txt and is the only line of text that occurs only once.
+
+* Commands - grep, sort, uniq, strings, base64, tr, tar, gzip, bzip2, xxd
+
+* Solution -
+
+```shell
+ls
+
+sort data.txt | uniq -uc #this will sort the file for uniq to work
+#uniq -uc will give count for unique strings
+#password (UsvVyFSfZZWbi6wgC7dAFyFuR6jQQUhR)
+
+exit
+
+ssh bandit.labs.overthewire.org -p 2220 -l bandit9
+```
+
+## Level 10
+
+* Goal - The password for the next level is stored in the file data.txt in one of the few human-readable strings, preceded by several ‘=’ characters.
+
+* Commands - grep, sort, uniq, strings, base64, tr, tar, gzip, bzip2, xxd
+
+* Solution -
+
+```shell
+ls
+
+strings data.txt | grep "=="
+#strings filters out human-readable content
+#password (truKLdjsbJ5g7yyJ2X2R0o3a5HQJFuLk)
+
+exit
+
+ssh bandit.labs.overthewire.org -p 2220 -l bandit10
+```
+
+## Level 11
+
+* Goal - The password for the next level is stored in the file data.txt, which contains base64 encoded data.
+
+* Commands - grep, sort, uniq, strings, base64, tr, tar, gzip, bzip2, xxd
+
+* Solution -
+
+```shell
+ls
+
+man base64
+
+base64 -d data.txt #password (IFukwKGsFW8MOq3IRFqrxE1hxTNEbUPR)
+
+exit
+
+ssh bandit.labs.overthewire.org -p 2220 -l bandit11
+```
