@@ -245,3 +245,96 @@ exit
 
 ssh bandit.labs.overthewire.org -p 2220 -l bandit11
 ```
+
+## Level 12
+
+* Goal - The password for the next level is stored in the file data.txt, where all lowercase (a-z) and uppercase (A-Z) letters have been rotated by 13 positions.
+
+* Commands - grep, sort, uniq, strings, base64, tr, tar, gzip, bzip2, xxd
+
+* Solution -
+
+```shell
+ls
+
+tr 'A-Za-z' 'N-ZA-Mn-za-m' < data.txt
+#translate for ROT13
+#password (5Te8Y4drgCRfCx8ugdwuEX8KFC6k2EUu)
+
+exit
+
+ssh bandit.labs.overthewire.org -p 2220 -l bandit12
+```
+
+## Level 13
+
+* Goal - The password for the next level is stored in the file data.txt, which is a hexdump of a file that has been repeatedly compressed. For this level it may be useful to create a directory under /tmp in which you can work using mkdir. For example: mkdir /tmp/myname123. Then copy the datafile using cp, and rename it using mv (read the manpages!)
+
+* Commands - grep, sort, uniq, strings, base64, tr, tar, gzip, bzip2, xxd, mkdir, cp, mv, file
+
+* Solution -
+
+```shell
+ls
+
+mkdir /tmp/dir1
+
+cp data.txt /tmp/dir1
+
+cd /tmp/dir1
+
+ls
+
+xxd -r data.txt > data1 #reversing hexdump and moving output to data1
+
+file data1 #shows that it is gzip compressed data
+
+mv data1 data1.gz
+
+gzip -d -k data1.gz #decompress data1.gz
+
+file data1 #bzip2 compressed data
+
+bzip2 -d -k data1
+
+ls
+
+file data1.out #gzip compressed data
+
+mv data1.out data1.gz
+
+gzip -dk data1.gz
+
+file data1 #POSIX tar archive
+
+mv data1 data1.tar
+
+tar -xvf data1.tar #gives file named data5.bin
+
+file data5.bin #shows that it is a tar file
+
+tar -xvf data5.bin #gives data6.bin
+
+file data6.bin #it is a bzip2 file
+
+bzip2 -dk data6.bin
+
+file data6.bin.out #tar file again
+
+tar -xvf data6.bin.out #gives data8.bin
+
+file data8.bin #gzip compressed file
+
+mv data8.bin data8.gz
+
+gzip -dk data8.gz
+
+file data8 #ASCII text
+
+cat data8
+#password (8ZjyCRiBWFYkneahHwxCv3wb2a1ORpYL)
+
+exit
+
+ssh bandit.labs.overthewire.org -p 2220 -l bandit13
+```
