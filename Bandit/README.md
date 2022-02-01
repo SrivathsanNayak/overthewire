@@ -338,3 +338,65 @@ exit
 
 ssh bandit.labs.overthewire.org -p 2220 -l bandit13
 ```
+
+## Level 14
+
+* Goal - The password for the next level is stored in /etc/bandit_pass/bandit14 and can only be read by user bandit14. For this level, you don’t get the next password, but you get a private SSH key that can be used to log into the next level. Note: localhost is a hostname that refers to the machine you are working on.
+
+* Commands - ssh, telnet, nc, openssl, s_client, nmap
+
+* Solution -
+
+```shell
+ls #shows sshkey.private
+
+file sshkey.private #PEM RSA private key
+
+ssh -i sshkey.private bandit14@localhost
+#using localhost as we are already using bandit.labs.overthewire.org
+#login as bandit14
+
+cat /etc/bandit_pass/bandit14
+#password (4wcYUJFw0k0XLShlDzztnTBHiqxU3b3e)
+```
+
+## Level 15
+
+* Goal - The password for the next level can be retrieved by submitting the password of the current level to port 30000 on localhost.
+
+* Commands - ssh, telnet, nc, openssl, s_client, nmap
+
+* Solution -
+
+```shell
+nc -h #help for netcat
+
+nc localhost 30000 #prompt for entering prev password
+#password (BfMYroe26WYalil77FoDi9qh59eK5xNr)
+
+exit
+
+exit
+
+ssh bandit.labs.overthewire.org -p 2220 -l bandit15
+```
+
+## Level 16
+
+* Goal - The password for the next level can be retrieved by submitting the password of the current level to port 30001 on localhost using SSL encryption. Helpful note: Getting “HEARTBEATING” and “Read R BLOCK”? Use -ign_eof and read the “CONNECTED COMMANDS” section in the manpage. Next to ‘R’ and ‘Q’, the ‘B’ command also works in this version of that command…
+
+* Commands - ssh, telnet, nc, openssl, s_client, nmap
+
+* Solution -
+
+```shell
+man openssl
+
+openssl s_client -crlf -connect localhost:30001 -servername localhost
+#connect to port 30001 on localhost using openssl
+#password (cluFn7wTiGryunymYOu4RcffSxQluehd)
+
+exit
+
+ssh bandit.labs.overthewire.org -p 2220 -l bandit16
+```
