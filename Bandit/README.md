@@ -400,3 +400,73 @@ exit
 
 ssh bandit.labs.overthewire.org -p 2220 -l bandit16
 ```
+
+## Level 17
+
+* Goal - The credentials for the next level can be retrieved by submitting the password of the current level to a port on localhost in the range 31000 to 32000. First find out which of these ports have a server listening on them. Then find out which of those speak SSL and which don’t. There is only 1 server that will give the next credentials, the others will simply send back to you whatever you send to it.
+
+* Commands - ssh, telnet, nc, openssl, s_client, nmap
+
+* Solution -
+
+```shell
+man nc
+
+nc -zv localhost 31000-32000 #port scan
+#gives 5 open ports, listening
+
+openssl s_client -crlf -connect localhost:31790 -servername localhost
+#only port with SSL
+#gives private key, to be stored in a file
+
+exit
+
+chmod 400 pvtkey #proper permissions for key file
+
+ssh -i pvtkey bandit.labs.overthewire.org -p 2220 -l bandit17
+```
+
+## Level 18
+
+* Goal - There are 2 files in the homedirectory: passwords.old and passwords.new. The password for the next level is in passwords.new and is the only line that has been changed between passwords.old and passwords.new. NOTE: if you have solved this level and see ‘Byebye!’ when trying to log into bandit18, this is related to the next level, bandit19.
+
+* Commands - cat, grep, ls, diff
+
+* Solution -
+
+```shell
+man diff
+
+diff -c passwords.new passwords.old
+#shows difference
+#password (kfBf3eYk5BPBRzwjqutbbfE887SVc5Yd)
+
+exit
+
+ssh bandit.labs.overthewire.org -p 2220 -l bandit18
+```
+
+## Level 19
+
+* Goal - The password for the next level is stored in a file readme in the homedirectory. Unfortunately, someone has modified .bashrc to log you out when you log in with SSH.
+
+* Commands - ssh, ls, cat
+
+* Solution -
+
+```shell
+#currently in home directory, logged out of ssh
+man ssh
+
+ssh -t bandit.labs.overthewire.org -p 2220 -l bandit18 /bin/sh
+#to overcome logging out issue
+
+ls
+
+cat readme
+#password (IueksS7Ubh8G3DCwVzrTd8rAVOwq3M5x)
+
+exit
+
+ssh bandit.labs.overthewire.org -p 2220 -l bandit19
+```
