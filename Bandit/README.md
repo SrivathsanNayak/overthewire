@@ -470,3 +470,81 @@ exit
 
 ssh bandit.labs.overthewire.org -p 2220 -l bandit19
 ```
+
+## Level 20
+
+* Goal - To gain access to the next level, you should use the setuid binary in the homedirectory. Execute it without arguments to find out how to use it. The password for this level can be found in the usual place (/etc/bandit_pass), after you have used the setuid binary.
+
+* Solution -
+
+```shell
+ls
+
+./bandit20-do
+
+./bandit-20-do id
+
+./bandit-20-do cat /etc/bandit_pass/bandit20
+#password (GbKksEFF4yrVs6il55v6gwY5aVje5f0j)
+
+exit
+
+ssh bandit.labs.overthewire.org -p 2220 -l bandit20
+```
+
+## Level 21
+
+* Goal - There is a setuid binary in the homedirectory that does the following: it makes a connection to localhost on the port you specify as a commandline argument. It then reads a line of text from the connection and compares it to the password in the previous level (bandit20). If the password is correct, it will transmit the password for the next level (bandit21). NOTE: Try connecting to your own network daemon to see if it works as you think.
+
+* Commands - ssh, nc, cat, bash, screen, tmux, Unix ‘job control’
+
+* Solution -
+
+```shell
+ls
+
+./suconnect
+
+man nc
+
+cat /etc/bandit_pass/bandit20
+
+echo "GbKksEFF4yrVs6il55v6gwY5aVje5f0j" | nc -l localhost -p 31000 &
+#can use any port here, ampersand added to shift job to background
+
+./suconnect 31000
+#password (gE269g2h3mw3pwgrj0Ha9Uoqen1c9DGr)
+
+exit
+
+ssh bandit.labs.overthewire.org -p 2220 -l bandit21
+```
+
+## Level 22
+
+* Goal - A program is running automatically at regular intervals from cron, the time-based job scheduler. Look in /etc/cron.d/ for the configuration and see what command is being executed.
+
+* Commands - cron, crontab, crontab(5) (use “man 5 crontab” to access this)
+
+* Solution -
+
+```shell
+man cron
+
+man crontab
+
+man 5 crontab
+
+ls /etc/cron.d/
+
+cat /etc/cron.d/cronjob_bandit22
+
+cat /usr/bin/cronjob_bandit22.sh
+
+cat /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
+#password (Yk7owGAcWjwMVRwrTesJEwB7WVOiILLI)
+
+exit
+
+ssh bandit.labs.overthewire.org -p 2220 -l bandit22
+```
