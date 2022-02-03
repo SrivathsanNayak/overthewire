@@ -548,3 +548,94 @@ exit
 
 ssh bandit.labs.overthewire.org -p 2220 -l bandit22
 ```
+
+## Level 23
+
+* Goal - A program is running automatically at regular intervals from cron, the time-based job scheduler. Look in /etc/cron.d/ for the configuration and see what command is being executed. NOTE: Looking at shell scripts written by other people is a very useful skill. The script for this level is intentionally made easy to read. If you are having problems understanding what it does, try executing it to see the debug information it prints.
+
+* Commands - cron, crontab, crontab(5)
+
+* Solution -
+
+```shell
+ls /etc/cron.d/
+
+cat /etc/cron.d/cronjob_bandit23
+
+cat /usr/bin/cronjob_bandit23.sh
+
+/usr/bin/cronjob_bandit23.sh
+#debug script
+
+bash -x /usr/bin/cronjob_bandit23.sh
+#myname can be given value of bandit23 to get tmp directory
+
+$myname
+
+myname=bandit23
+
+echo I am user $myname | md5sum | cut -d ' ' -f 1
+#gives 8ca319486bfbbc3663ea0fbe81326349
+
+cat /tmp/8ca319486bfbbc3663ea0fbe81326349
+#password (jc1udXuA1tiHqjIsL8yaapX5XIAI6i0n)
+
+exit
+
+ssh bandit.labs.overthewire.org -p 2220 -l bandit23
+```
+
+## Level 24
+
+* Goal - A program is running automatically at regular intervals from cron, the time-based job scheduler. Look in /etc/cron.d/ for the configuration and see what command is being executed. NOTE: This level requires you to create your own first shell-script. This is a very big step and you should be proud of yourself when you beat this level! NOTE 2: Keep in mind that your shell script is removed once executed, so you may want to keep a copy around…
+
+* Commands - cron, crontab, crontab(5)
+
+* Solution -
+
+```shell
+ls /etc/cron.d/
+
+cat /etc/cron.d/cronjob_bandit24.sh
+
+cat /usr/bin/cronjob_bandit24.sh
+
+ls /var/spool/
+
+mkdir /tmp/myname0
+
+cd /tmp/myname0
+
+touch script.sh
+
+touch passwd
+
+vim script.sh
+#write shell script to 
+#copy content of /etc/bandit_pass/bandit24 to /tmp/myname0/passwd and save file
+
+chmod 777 script.sh
+#in order for script to be executed by anyone
+
+chmod 777 passwd
+
+cp script.sh /var/spool/bandit24
+#copy script to given location
+
+/usr/bin/cronjob_bandit24.sh
+#execute script
+#password (UoMYTrfrBFHyQXmg6gzctqAwOmw1IohZ)
+
+exit
+
+ssh bandit.labs.overthewire -p 2220 -l bandit24
+```
+
+## Level 25
+
+* Goal - A daemon is listening on port 30002 and will give you the password for bandit25 if given the password for bandit24 and a secret numeric 4-digit pincode. There is no way to retrieve the pincode except by going through all of the 10000 combinations, called brute-forcing.
+
+* Solution -
+
+```shell
+```
