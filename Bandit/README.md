@@ -628,7 +628,7 @@ cp script.sh /var/spool/bandit24
 
 exit
 
-ssh bandit.labs.overthewire -p 2220 -l bandit24
+ssh bandit.labs.overthewire.org -p 2220 -l bandit24
 ```
 
 ## Level 25
@@ -638,4 +638,35 @@ ssh bandit.labs.overthewire -p 2220 -l bandit24
 * Solution -
 
 ```shell
+man nc
+
+nc localhost 30002
+#connect to see format required for password and pincode
+#script with loop can be created to brute-force connection
+
+mkdir /tmp/srivathsan
+
+cd /tmp/srivathsan
+
+touch brutescript.sh
+
+chmod 777 brutescript.sh
+
+vim brutescript.sh
+#script used
+: '
+#!/bin/bash
+
+for value in {1000..9999}
+do
+    echo "UoMYTrfrBFHyQXmg6gzctqAwOmw1IohZ $value"
+done | nc localhost 30002 | grep -v Try
+'
+
+./brutescript.sh
+#password (uNG9O58gUE7snukf3bvZ0rxhtnjzSGzG)
+
+exit
+
+ssh bandit.labs.overthewire.org -p 2220 -l bandit25
 ```
