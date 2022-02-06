@@ -27,8 +27,6 @@ cat readme #show content of readme
 #copy the password (boJ9jbbUNNfktd78OOpsqOltutMc3MY1)
 
 exit #exit current ssh session
-
-ssh bandit.labs.overthewire.org -p 2220 -l bandit1 #enter copied password
 ```
 
 ## Level 2
@@ -40,13 +38,13 @@ ssh bandit.labs.overthewire.org -p 2220 -l bandit1 #enter copied password
 * Solution -
 
 ```shell
+ssh bandit.labs.overthewire.org -p 2220 -l bandit1 #enter copied password
+
 ls
 
 cat ./- #filename is -, copy password (CV1DtqXWVFXTvM2F0k09SHz0YwRINYA9)
 
 exit
-
-ssh bandit.labs.overthewire.org -p 2220 -l bandit2
 ```
 
 ## Level 3
@@ -58,13 +56,13 @@ ssh bandit.labs.overthewire.org -p 2220 -l bandit2
 * Solution -
 
 ```shell
+ssh bandit.labs.overthewire.org -p 2220 -l bandit2
+
 ls
 
 cat "spaces in this filename" #password (UmHadQclWmgdLOKQ3YNgjWxGoRMb5luK)
 
 exit
-
-ssh bandit.labs.overthewire.org -p 2220 -l bandit3
 ```
 
 ## Level 4
@@ -76,6 +74,8 @@ ssh bandit.labs.overthewire.org -p 2220 -l bandit3
 * Solution -
 
 ```shell
+ssh bandit.labs.overthewire.org -p 2220 -l bandit3
+
 ls
 
 cd inhere/
@@ -85,8 +85,6 @@ ls -a #shows all files, including hidden file (with prefix .)
 cat .hidden #password (pIwrPrtPN36QITSp3EQaw936yaFoFgAB)
 
 exit
-
-ssh bandit.labs.overthewire.org -p 2220 -l bandit4
 ```
 
 ## Level 5
@@ -98,6 +96,8 @@ ssh bandit.labs.overthewire.org -p 2220 -l bandit4
 * Solution -
 
 ```shell
+ssh bandit.labs.overthewire.org -p 2220 -l bandit4
+
 ls
 
 cd inhere/
@@ -114,8 +114,6 @@ cd inhere/
 cat ./-file07 #password (koReBOKuIDDepwhWk7jZC0RTdopnAYKh)
 
 exit
-
-ssh bandit.labs.overthewire.org -p 2220 -l bandit5
 ```
 
 ## Level 6
@@ -129,6 +127,8 @@ ssh bandit.labs.overthewire.org -p 2220 -l bandit5
 * Solution -
 
 ```shell
+ssh bandit.labs.overthewire.org -p 2220 -l bandit5
+
 ls
 
 cd inhere/
@@ -138,8 +138,6 @@ find . -type f -size 1033c #1033 bytes, file type, shows one file
 cat ./maybehere07/.file2 #password (DXjZPULLxYr17uwoI01bNLQbtFemEgo7)
 
 exit
-
-ssh bandit.labs.overthewire.org -p 2220 -l bandit6
 ```
 
 ## Level 7
@@ -153,6 +151,8 @@ ssh bandit.labs.overthewire.org -p 2220 -l bandit6
 * Solution -
 
 ```shell
+ssh bandit.labs.overthewire.org -p 2220 -l bandit6
+
 ls -a #shows all files
 
 find / -user bandit7 -group bandit6 -size 33c -type f 2> /dev/null
@@ -163,8 +163,6 @@ find / -user bandit7 -group bandit6 -size 33c -type f 2> /dev/null
 cat /var/lib/dpkg/info/bandit7.password #password (HKBPTKQnIay4Fw76bEy8PVxKEDQRKTzs)
 
 exit
-
-ssh bandit.labs.overthewire.org -p 2220 -l bandit7
 ```
 
 ## Level 8
@@ -176,14 +174,14 @@ ssh bandit.labs.overthewire.org -p 2220 -l bandit7
 * Solution -
 
 ```shell
+ssh bandit.labs.overthewire.org -p 2220 -l bandit7
+
 ls
 
 grep millionth data.txt #shows line with the word 'millionth'
 #password (cvX2JJa4CFALtqS87jk27qwqGhBM9plV)
 
 exit
-
-ssh bandit.labs.overthewire.org -p 2220 -l bandit8
 ```
 
 ## Level 9
@@ -195,6 +193,8 @@ ssh bandit.labs.overthewire.org -p 2220 -l bandit8
 * Solution -
 
 ```shell
+ssh bandit.labs.overthewire.org -p 2220 -l bandit8
+
 ls
 
 sort data.txt | uniq -uc #this will sort the file for uniq to work
@@ -202,8 +202,6 @@ sort data.txt | uniq -uc #this will sort the file for uniq to work
 #password (UsvVyFSfZZWbi6wgC7dAFyFuR6jQQUhR)
 
 exit
-
-ssh bandit.labs.overthewire.org -p 2220 -l bandit9
 ```
 
 ## Level 10
@@ -215,6 +213,8 @@ ssh bandit.labs.overthewire.org -p 2220 -l bandit9
 * Solution -
 
 ```shell
+ssh bandit.labs.overthewire.org -p 2220 -l bandit9
+
 ls
 
 strings data.txt | grep "=="
@@ -222,8 +222,6 @@ strings data.txt | grep "=="
 #password (truKLdjsbJ5g7yyJ2X2R0o3a5HQJFuLk)
 
 exit
-
-ssh bandit.labs.overthewire.org -p 2220 -l bandit10
 ```
 
 ## Level 11
@@ -235,6 +233,8 @@ ssh bandit.labs.overthewire.org -p 2220 -l bandit10
 * Solution -
 
 ```shell
+ssh bandit.labs.overthewire.org -p 2220 -l bandit10
+
 ls
 
 man base64
@@ -242,8 +242,6 @@ man base64
 base64 -d data.txt #password (IFukwKGsFW8MOq3IRFqrxE1hxTNEbUPR)
 
 exit
-
-ssh bandit.labs.overthewire.org -p 2220 -l bandit11
 ```
 
 ## Level 12
@@ -255,6 +253,8 @@ ssh bandit.labs.overthewire.org -p 2220 -l bandit11
 * Solution -
 
 ```shell
+ssh bandit.labs.overthewire.org -p 2220 -l bandit11
+
 ls
 
 tr 'A-Za-z' 'N-ZA-Mn-za-m' < data.txt
@@ -262,8 +262,6 @@ tr 'A-Za-z' 'N-ZA-Mn-za-m' < data.txt
 #password (5Te8Y4drgCRfCx8ugdwuEX8KFC6k2EUu)
 
 exit
-
-ssh bandit.labs.overthewire.org -p 2220 -l bandit12
 ```
 
 ## Level 13
@@ -275,6 +273,8 @@ ssh bandit.labs.overthewire.org -p 2220 -l bandit12
 * Solution -
 
 ```shell
+ssh bandit.labs.overthewire.org -p 2220 -l bandit12
+
 ls
 
 mkdir /tmp/dir1
@@ -335,8 +335,6 @@ cat data8
 #password (8ZjyCRiBWFYkneahHwxCv3wb2a1ORpYL)
 
 exit
-
-ssh bandit.labs.overthewire.org -p 2220 -l bandit13
 ```
 
 ## Level 14
@@ -348,6 +346,8 @@ ssh bandit.labs.overthewire.org -p 2220 -l bandit13
 * Solution -
 
 ```shell
+ssh bandit.labs.overthewire.org -p 2220 -l bandit13
+
 ls #shows sshkey.private
 
 file sshkey.private #PEM RSA private key
@@ -377,8 +377,6 @@ nc localhost 30000 #prompt for entering prev password
 exit
 
 exit
-
-ssh bandit.labs.overthewire.org -p 2220 -l bandit15
 ```
 
 ## Level 16
@@ -390,6 +388,8 @@ ssh bandit.labs.overthewire.org -p 2220 -l bandit15
 * Solution -
 
 ```shell
+ssh bandit.labs.overthewire.org -p 2220 -l bandit15
+
 man openssl
 
 openssl s_client -crlf -connect localhost:30001 -servername localhost
@@ -397,8 +397,6 @@ openssl s_client -crlf -connect localhost:30001 -servername localhost
 #password (cluFn7wTiGryunymYOu4RcffSxQluehd)
 
 exit
-
-ssh bandit.labs.overthewire.org -p 2220 -l bandit16
 ```
 
 ## Level 17
@@ -410,6 +408,8 @@ ssh bandit.labs.overthewire.org -p 2220 -l bandit16
 * Solution -
 
 ```shell
+ssh bandit.labs.overthewire.org -p 2220 -l bandit16
+
 man nc
 
 nc -zv localhost 31000-32000 #port scan
@@ -467,8 +467,6 @@ cat readme
 #password (IueksS7Ubh8G3DCwVzrTd8rAVOwq3M5x)
 
 exit
-
-ssh bandit.labs.overthewire.org -p 2220 -l bandit19
 ```
 
 ## Level 20
@@ -478,6 +476,8 @@ ssh bandit.labs.overthewire.org -p 2220 -l bandit19
 * Solution -
 
 ```shell
+ssh bandit.labs.overthewire.org -p 2220 -l bandit19
+
 ls
 
 ./bandit20-do
@@ -488,8 +488,6 @@ ls
 #password (GbKksEFF4yrVs6il55v6gwY5aVje5f0j)
 
 exit
-
-ssh bandit.labs.overthewire.org -p 2220 -l bandit20
 ```
 
 ## Level 21
@@ -501,6 +499,8 @@ ssh bandit.labs.overthewire.org -p 2220 -l bandit20
 * Solution -
 
 ```shell
+ssh bandit.labs.overthewire.org -p 2220 -l bandit20
+
 ls
 
 ./suconnect
@@ -516,8 +516,6 @@ echo "GbKksEFF4yrVs6il55v6gwY5aVje5f0j" | nc -l localhost -p 31000 &
 #password (gE269g2h3mw3pwgrj0Ha9Uoqen1c9DGr)
 
 exit
-
-ssh bandit.labs.overthewire.org -p 2220 -l bandit21
 ```
 
 ## Level 22
@@ -529,6 +527,8 @@ ssh bandit.labs.overthewire.org -p 2220 -l bandit21
 * Solution -
 
 ```shell
+ssh bandit.labs.overthewire.org -p 2220 -l bandit21
+
 man cron
 
 man crontab
@@ -545,8 +545,6 @@ cat /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
 #password (Yk7owGAcWjwMVRwrTesJEwB7WVOiILLI)
 
 exit
-
-ssh bandit.labs.overthewire.org -p 2220 -l bandit22
 ```
 
 ## Level 23
@@ -558,6 +556,8 @@ ssh bandit.labs.overthewire.org -p 2220 -l bandit22
 * Solution -
 
 ```shell
+ssh bandit.labs.overthewire.org -p 2220 -l bandit22
+
 ls /etc/cron.d/
 
 cat /etc/cron.d/cronjob_bandit23
@@ -581,8 +581,6 @@ cat /tmp/8ca319486bfbbc3663ea0fbe81326349
 #password (jc1udXuA1tiHqjIsL8yaapX5XIAI6i0n)
 
 exit
-
-ssh bandit.labs.overthewire.org -p 2220 -l bandit23
 ```
 
 ## Level 24
@@ -594,6 +592,8 @@ ssh bandit.labs.overthewire.org -p 2220 -l bandit23
 * Solution -
 
 ```shell
+ssh bandit.labs.overthewire.org -p 2220 -l bandit23
+
 ls /etc/cron.d/
 
 cat /etc/cron.d/cronjob_bandit24.sh
@@ -627,8 +627,6 @@ cp script.sh /var/spool/bandit24
 #password (UoMYTrfrBFHyQXmg6gzctqAwOmw1IohZ)
 
 exit
-
-ssh bandit.labs.overthewire.org -p 2220 -l bandit24
 ```
 
 ## Level 25
@@ -638,6 +636,8 @@ ssh bandit.labs.overthewire.org -p 2220 -l bandit24
 * Solution -
 
 ```shell
+ssh bandit.labs.overthewire.org -p 2220 -l bandit24
+
 man nc
 
 nc localhost 30002
@@ -667,8 +667,6 @@ done | nc localhost 30002 | grep -v Try
 #password (uNG9O58gUE7snukf3bvZ0rxhtnjzSGzG)
 
 exit
-
-ssh bandit.labs.overthewire.org -p 2220 -l bandit25
 ```
 
 ## Level 26
@@ -680,6 +678,8 @@ ssh bandit.labs.overthewire.org -p 2220 -l bandit25
 * Solution -
 
 ```shell
+ssh bandit.labs.overthewire.org -p 2220 -l bandit25
+
 ls
 #sshkey for login is given
 
