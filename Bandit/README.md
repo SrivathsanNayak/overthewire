@@ -670,3 +670,39 @@ exit
 
 ssh bandit.labs.overthewire.org -p 2220 -l bandit25
 ```
+
+## Level 26
+
+* Goal - Logging in to bandit26 from bandit25 should be fairly easy… The shell for user bandit26 is not /bin/bash, but something else. Find out what it is, how it works and how to break out of it.
+
+* Commands - ssh, cat, more, vi, ls, id, pwd
+
+* Solution -
+
+```shell
+ls
+#sshkey for login is given
+
+ssh -i bandit26.sshkey bandit26@localhost -vvv
+#use -vvv for detailed error message
+
+cat /etc/passwd | grep bandit26
+#shows user details, includes shell used
+
+cat /etc/shells
+#shows shells used
+
+cat /usr/bin/showtext #shell used
+#contains command more to show ascii art
+#more allows us to execute commands when output buffers
+#so we can shorten screen to make buffered output, and run more with vim
+
+ssh -i bandit26.sshkey bandit26@localhost
+#resize screen to make it really short, in order to execute commands using more
+#type v to enter vim
+
+:r /etc/bandit_pass/bandit26
+#password (5czgV9L3Xx8JPOyRbXh6lQbmIOWvPT6Z)
+
+exit
+```
