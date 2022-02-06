@@ -704,5 +704,31 @@ ssh -i bandit26.sshkey bandit26@localhost
 :r /etc/bandit_pass/bandit26
 #password (5czgV9L3Xx8JPOyRbXh6lQbmIOWvPT6Z)
 
+:set shell=/bin/bash #to set shell through vim
+
+:shell
+#launches shell for bandit26
+```
+
+## Level 27
+
+* Goal - Good job getting a shell! Now hurry and grab the password for bandit27!
+
+* Commands - ls
+
+* Solution -
+
+```shell
+ls
+
+./bandit27-do
+#this binary allows us to run commands as another user
+
+./bandit27-do cat /etc/bandit_pass/bandit27
+#password (3ba3118a22e93127a4ed485be72ef5ea)
+
+exit
+#to exit out of vim, :q!
+
 exit
 ```
