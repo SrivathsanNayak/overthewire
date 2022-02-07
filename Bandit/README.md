@@ -732,3 +732,110 @@ exit
 
 exit
 ```
+
+## Level 28
+
+* Goal - There is a git repository at ssh://bandit27-git@localhost/home/bandit27-git/repo. The password for the user bandit27-git is the same as for the user bandit27. Clone the repository and find the password for the next level.
+
+* Commands - git
+
+* Solution -
+
+```shell
+ssh bandit.labs.overthewire.org -p 2220 -l bandit27
+
+man git
+
+mkdir /tmp/srivathsan0
+
+cd /tmp/srivathsan0
+
+git clone ssh://bandit27-git@localhost/home/bandit27-git/repo
+
+ls
+
+cd repo/
+
+ls
+
+cat README
+#password (0ef186ac70e04ea33b4c1853d2526fa2)
+
+exit
+```
+
+## Level 29
+
+* Goal - There is a git repository at ssh://bandit28-git@localhost/home/bandit28-git/repo. The password for the user bandit28-git is the same as for the user bandit28. Clone the repository and find the password for the next level.
+
+* Commands - git
+
+* Solution -
+
+```shell
+ssh bandit.labs.overthewire.org -p 2220 -l bandit28
+
+mkdir /tmp/srivathsan1
+
+cd /tmp/srivathsan1
+
+git clone ssh://bandit28-git@localhost/home/bandit28-git/repo
+
+ls
+
+cd repo/
+
+ls
+
+cat README.md
+#shows hidden password for bandit29
+
+git log
+#shows previous commits
+
+git log -p #shows diff between commits
+#password (bbc96594b4e001778eee9975372716b2)
+
+exit
+```
+
+## Level 30
+
+* Goal - There is a git repository at ssh://bandit29-git@localhost/home/bandit29-git/repo. The password for the user bandit29-git is the same as for the user bandit29. Clone the repository and find the password for the next level.
+
+* Commands - git
+
+* Solution -
+
+```shell
+ssh bandit.labs.overthewire.org -p 2220 -l bandit29
+
+mkdir /tmp/srivathsan2
+
+cd /tmp/srivathsan2
+
+git clone ssh://bandit29-git@localhost/home/bandit29-git/repo
+
+ls
+
+cd repo/
+
+ls
+
+cat README.md
+
+git log -p
+
+git log --stat
+
+git branch -a
+#show all branches
+
+git checkout dev
+#shift to branch - dev
+
+git log -p
+#password (5b90576bedb2cc04c86a9e924ce42faf)
+
+exit
+```
