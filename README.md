@@ -7,3 +7,5 @@
 * Wargames:
 
     1. [Bandit](Bandit/README.md)
+
+    2. [Leviathan](Leviathan/README.md)
