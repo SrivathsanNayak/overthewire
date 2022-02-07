@@ -839,3 +839,123 @@ git log -p
 
 exit
 ```
+
+## Level 31
+
+* Goal - There is a git repository at ssh://bandit30-git@localhost/home/bandit30-git/repo. The password for the user bandit30-git is the same as for the user bandit30. Clone the repository and find the password for the next level.
+
+* Commands - git
+
+* Solution -
+
+```shell
+ssh bandit.labs.overthewire.org -p 2220 -l bandit30
+
+mkdir /tmp/srivathsan3
+
+cd /tmp/srivathsan3
+
+git clone ssh://bandit30-git@localhost/home/bandit30-git/repo
+
+ls
+
+cd repo/
+
+ls
+
+cat README.md
+
+git tag
+#shows tag called secret
+
+git show secret
+#password (47e603bb428404d265f59c42920d81e5)
+
+exit
+```
+
+## Level 32
+
+* Goal - There is a git repository at ssh://bandit31-git@localhost/home/bandit31-git/repo. The password for the user bandit31-git is the same as for the user bandit31. Clone the repository and find the password for the next level.
+
+* Commands - git
+
+* Solution -
+
+```shell
+ssh bandit.labs.overthewire.org -p 2220 -l bandit31
+
+mkdir /tmp/srivathsan4
+
+cd /tmp/srivathsan4
+
+git clone ssh://bandit31-git@localhost/home/bandit31-git/repo
+
+ls
+
+cd repo/
+
+ls
+
+cat README.md
+#we need to push key.txt to the repo as given
+
+ls -la
+#shows .gitignore file
+
+cat .gitignore
+#contains *.txt, so all .txt files will be ignored
+
+rm .gitignore
+#now we can add key.txt
+
+echo 'May I come in?' > key.txt
+#creates key.txt with content
+
+git add -A
+#adds all files, ready for committing
+
+git commit -m "key.txt created"
+
+git push
+#password (56a9bf19c63d650ce78e6ec0354ee45e)
+
+exit
+```
+
+## Level 33
+
+* Goal - After all this git stuff its time for another escape. Good luck!
+
+* Commands - sh, man
+
+* Solution -
+
+```shell
+ssh bandit.labs.overthewire.org -p 2220 -l bandit32
+#uppercase shell, cannot enter lowercase commands
+#all commands are converted to uppercase
+#it shows that there are three parameters, separated by colons
+#we can access them by $0, $1, $2 through parameter substitution
+
+$shell
+#converts it to $SHELL, default shell
+
+$0
+#takes us to sh
+
+export SHELL=/bin/bash
+
+$SHELL
+#takes us to /bin/bash
+#lowercase commands will work now
+
+ls
+
+cat /etc/bandit_pass/bandit33
+#password (c9c3199ddf4121b10cf581a98d51caee)
+
+exit
+
+exit
+```
