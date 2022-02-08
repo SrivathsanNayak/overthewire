@@ -124,3 +124,58 @@ exit
 
 exit
 ```
+
+## Level 3
+
+* Solution -
+
+```shell
+ssh leviathan.labs.overthewire.org -p 2223 -l leviathan3
+
+ls -la
+#shows binary named level3 with leviathan4 user
+
+file level3
+
+./level3
+#gives prompt to enter password
+
+ltrace ./level3
+#shows strcmp function
+#string compared with 'snlprintf'
+
+ltrace ./level3
+#enter snlprintf
+#takes to shell
+
+whoami
+#leviathan3
+
+ls
+#shows level3
+
+./level3
+#enter password 'snlprintf' again
+#takes us to another shell
+
+whoami
+#leviathan4
+
+cat /etc/leviathan_pass/leviathan4
+#password (vuH0coox6m)
+
+exit
+
+exit
+#back to leviathan3
+
+exit
+```
+
+## Level 4
+
+* Solution -
+
+```shell
+ssh leviathan.labs.overthewire.org -p 2223 -l leviathan4
+```
