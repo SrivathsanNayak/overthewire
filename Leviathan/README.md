@@ -178,4 +178,63 @@ exit
 
 ```shell
 ssh leviathan.labs.overthewire.org -p 2223 -l leviathan4
+
+ls -la
+#shows a hidden directory called trash
+
+cd .trash/
+
+ls -la
+#shows file called bin with leviathan5 as owner
+
+file bin
+#binary
+
+./bin
+#gives output in binary
+#convert binary to ascii using online tool
+#password (Tith4cokei)
+
+exit
+```
+
+## Level 5
+
+* Solution -
+
+```shell
+ssh leviathan.labs.overthewire.org -p 2223 -l leviathan5
+
+ls -la
+#shows file named leviathan5, owned by leviathan6
+
+file leviathan5
+#binary file
+
+./leviathan5
+#cannot find /tmp/file.log
+
+ltrace ./leviathan5
+#it tries to open /tmp/file.log
+#cannot find /tmp/file.log
+
+less leviathan5
+
+strings leviathan5
+
+touch /tmp/file.log
+#tried to create a file
+
+ltrace ./leviathan5
+#code runs and it prints content inside /tmp/file.log
+#then it deletes /tmp/file.log
+
+ln -s /etc/leviathan_pass/leviathan6 /tmp/file.log
+#creates a symbolic link such that /tmp/file.log links to the password for leviathan6
+
+./leviathan5
+#gives content of /tmp/file.log, which leads to password file
+#password (UgaoFee4li)
+
+exit
 ```
