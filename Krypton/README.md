@@ -105,3 +105,82 @@ tr 'M-ZA-L' 'A-Z' < /krypton/krypton2/krypton3
 
 exit
 ```
+
+## Level 3
+
+* Goal - The password to the next level is found in the file ‘krypton4’. You have also found 3 other files. (found1, found2, found3) You know the following important details: The message plaintexts are in English - They were produced from the same key.
+
+* Solution -
+
+```shell
+ssh krypton.labs.overthewire.org -p 2231 -l krypton3
+
+ls -la /krypton/krypton3
+#shows multiple files
+
+cat /krypton/krypton3/README
+
+cat /krypton/krypton3/krypton4
+#contains encrypted password
+
+cat /krypton/krypton3/HINT1
+#some letters are more prevalent in English than others
+
+cat /krypton/krypton3/HINT2
+#frequency analysis is your friend
+
+cat /krypton/krypton3/found1
+#contains more encrypted text
+#found2 and found3 also have encrypted text
+#all of them from the same key
+
+grep -o . /krypton/krypton3/found1 | sort | uniq -c | sort -rn
+#for letter frequency analysis
+#grep -o for only matching input, sort and uniq combined for counting all characters
+#sort -rn for sorting numerically in reverse
+#this gives a letter count
+
+grep -o . /krypton/krypton3/found2 | sort | uniq -c | sort -rn
+
+grep -o . /krypton/krypton3/found3 | sort | uniq -c | sort -rn
+#all three files gives S,Q,J,N,U,B,C as most common characters
+#in English language we can check which characters are most common
+#E,A,R,I,O,T,N are most common
+#so we can use tr to attempt cracking of krypton4 cipher
+
+tr 'S-ZA-R' 'E-ZA-D' < /krypton/krypton3/krypton4
+#did not work
+#try replacing letter by letter now
+
+tr '[S]' '[E]' < /krypton/krypton3/krypton4
+#replaces S by E in cipher text
+#by increasing one character at a time, we can try to crack cipher
+
+tr '[JDS]' '[THE]' < /krypton/krypton3/krypton4
+#JDS is a common string, so it can be THE in plaintext
+
+tr '[JDSQ]' '[THEA]' < /krypton/krypton3/krypton4
+
+tr '[JDSQN]' '[THEAO]' < /krypton/krypton3/krypton4
+#we can notice some words, based on that trial and error can work
+
+tr '[JDSQNVI]' '[THEAOLV]' < /krypton/krypton3/krypton4
+
+tr '[JDSQNVIK]' '[THEAOLVW]' < /krypton/krypton3/krypton4
+
+tr '[JDSQBVIKWG]' '[THEAOLVWDN]' < /krypton/krypton3/krypton4
+#we can see that WELL DONE is the first part, so we can carry on
+
+tr '[JDSQBVIKWGU]' '[THEAOLVWDNS]' < /krypton/krypton3/krypton4
+#we can see the letters for the word PASSWORD, so we will guess more
+
+tr '[JDSQBVIKWGUYN]' '[THEAOLVWDNSPR]' < /krypton/krypton3/krypton4
+#the word before PASSWORD can be FOUR
+
+tr '[JDSQBVIKWGUYNXMCA]' '[THEAOLVWDNSPRFUIB]' < /krypton/krypton3/krypton4
+#WELL DONE THE LEVEL FOUR PASSWORD IS BRUTE
+#we can confirm this by using same key for found files
+#password (BRUTE)
+
+exit
+```
