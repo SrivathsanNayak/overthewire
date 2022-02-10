@@ -184,3 +184,78 @@ tr '[JDSQBVIKWGUYNXMCA]' '[THEAOLVWDNSPRFUIB]' < /krypton/krypton3/krypton4
 
 exit
 ```
+
+## Level 4
+
+* Goal - This level is a Vigenère Cipher. You have intercepted two longer, english language messages. You also have a key piece of information. You know the key length! For this exercise, the key length is 6. The password to level five is in the usual place, encrypted with the 6 letter key.
+
+* Solution -
+
+```shell
+ssh krypton.labs.overthewire.org -p 2231 -l krypton4
+
+cd /krypton/krypton4
+
+ls -la
+#contains files, password in krypton5
+
+cat found1
+
+cat found2
+
+cat HINT
+#FA (Frequency Analysis) by keylength
+#we have to analyze cipher texts at position 1,6,12,.. to reveal first letter, for example
+
+mktemp -d
+
+cd /tmp/tmp.7KeX4jePyK
+
+vim trial.sh
+: '
+#!/bin/sh
+
+cat < /krypton/krypton4/found1 | grep [A-Z] | sed 's: ::g' | sed -E 's/(.).{0,5}/\1/g' > found1_shift
+grep -o . found1_shift | sort | uniq -c | sort -rn
+
+#stores all characters at every 6 indices in a file
+#tail -c +1 for telling it to start from 1st character, as we will change it later
+#for printing frequency of every character related to first letter of key
+#so this is frequency analysis for first character of key
+#we can do the same for different files and different indices
+'
+
+chmod 777 trial.sh
+#keep editing the script, running it for different files and noting down the outputs in a file
+#we know E,A,R,I,O,T,N are most common English characters
+#so we can apply the same logic here and use trial-and-error
+#we can also use [A-Z] mapped to [0-25] as a range to refer
+
+#so, if J is most common in found1, that means it is mapped to E
+#so first letter of key could be 9 - 4 = 5, that is, F
+
+#similarly, we have to find all characters of the keytext
+
+#modified script for other indices
+: '
+#!/bin/sh
+
+cat < /krypton/krypton4/found1 | grep [A-Z] | sed 's: ::g' | tail -c +2  | sed -E 's/(.).{1,5}/\1/g' > found1_shift1
+grep -o . found1_shift1 | sort | uniq -c | sort -rn
+
+#tail -c +2 used for reading from second character onwards
+'
+
+#for characters 1,7,13,.. most common is V(21)
+#so second possible character for keytext is 21 - 4 = 17
+#for characters 2,8,14,.. most common is I(8)
+#so third character is 8 - 4 = 4
+#possible keytext - FREKEY
+
+cat /krypton/krypton4/krypton5
+#HCIKV RJOX
+#now we need to use this keytext to decode the password (plaintext)
+#using the logic of Plaintext + Keytext = Ciphertext
+
+#password (CLEARTEXT)
+```
