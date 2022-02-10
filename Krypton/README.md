@@ -259,3 +259,56 @@ cat /krypton/krypton4/krypton5
 
 #password (CLEARTEXT)
 ```
+
+## Level 5
+
+* Goal - FA can break a known key length as well. Lets try one last polyalphabetic cipher, but this time the key length is unknown.
+
+* Solution -
+
+```shell
+ssh krypton.labs.overthewire.org -p 2231 -l krypton5
+
+cd /krypton/krypton5
+
+ls -la
+#contains multiple files, encrypted using same key as password file
+
+cat krypton6
+#BELOS Z
+#encrypted password using key of unknown length
+
+mktemp -d
+
+cd /tmp/tmp.2E6AhPCldN
+
+vim trial.sh
+#as key length is unknown, we will do FA like previous example
+: '
+#!/bin/bash
+
+cat < /krypton/krypton5/found1 | grep [A-Z] | sed 's: ::g' | tail -c +1 | sed -E 's/(.).{1,2}/\1/g' > found1-shift0
+grep -o . found1-shift0 | sort | uniq -c | sort -rn
+
+'
+
+chmod 777 trial.sh
+
+./trial.sh
+#similar to previous problem, we have to keep doing FA
+#by shifting one letter at a time
+#for all three found files
+#we can try for keysize = 3
+#upto keysize = 12
+#and accordingly decode the password
+
+#we can edit tail -c +x, where x is the number less than or equal to key size, and greater than 1
+
+#after trying, we got results for keysize = 9
+#key - XEYLENBTH
+#after doing the same for the other two files
+#we got key - KEYLENGTH
+#now we can decode the password
+
+#password (RANDOM)
+```
