@@ -312,3 +312,73 @@ chmod 777 trial.sh
 
 #password (RANDOM)
 ```
+
+## Level 6
+
+* Goal - In this example, the keyfile is in your directory, however it is not readable by you. The binary ‘encrypt6’ is also available. It will read the keyfile and encrypt any message you desire, using the key AND a ‘random’ number. You get to perform a ‘known ciphertext’ attack by introducing plaintext of your choice. The challenge here is not simple, but the ‘random’ number generator is weak.
+
+* Solution -
+
+```shell
+ssh krypton.labs.overthewire.org -p 2231 -l krypton6
+
+cd /krypton/krypton6
+
+ls -la
+
+cd onetime/
+
+ls -la
+#contains plaintext, keytext and ciphertext, as examples
+
+cd ..
+
+cat README
+#go through all given files
+
+cat HINT1
+#random generator has limited, periodic number of bits
+#entropy analysis and hex editor can help
+
+mktemp -d
+
+cd /tmp/tmp.hZbRDFqDu3
+
+ln -s /krypton/krypton6/keyfile.dat
+
+chmod 777 .
+
+vim sample.txt
+#create a text file and add some sample text to it
+#ONCEUPONATIMETHERELIVEDABOY
+
+/krypton/krypton6/encrypt6 sample.txt samplecipher.txt
+#encrypt sample text file to see how encryption works here
+
+cat samplecipher.txt
+
+xxd -b sample.txt
+#hexdump in binary
+
+xxd -b samplecipher.txt
+#now we can XOR the both of them to obtain keytext
+
+#Alternatively, we can create a textfile containing base values only (A in this case)
+#And encrypt it so that the ciphertext obtained is same as key
+
+vim atext.txt
+
+/krypton/krypton6/encrypt6 atext.txt cipher.txt
+
+cat cipher.txt
+#shows ciphertext, which contains repeated keytext
+#keytext is EICTDGYIYZKTHNSIRFXYCPFUEOCKRN
+
+cat /krypton/krypton6/krypton7
+#PNUKLYLWRQKGKBE
+
+#we can now use tools to decode the password cipher
+#password (LFSRISNOTRANDOM)
+
+exit
+```
