@@ -83,4 +83,53 @@ Now, we can see that it has granted us the password for next level.
 
 ```markdown
 Webpage shows access denied as we are not logged in.
+As we do not have any clues given in the webpage code, we initiate the Burp Suite application again.
+Using intercept, we manage to read the GET request, which contains a parameter related to logging in.
+Its current value is 0, so we change it to 1 and forward the request.
+We can change the variable using the browser console too.
+Upon reloading and attempting again, we get the password for natas6.
+```
+
+## Level 6
+
+* Credentials - Username: natas6; Password: aGoY4q2Dc6MgDq4oL4YtoKtyAg9PeHa1; URL: <http://natas6.natas.labs.overthewire.org>
+
+* Solution -
+
+```markdown
+The page contains an input box to enter a secret and a submit button.
+It also contains a link to view sourcecode.
+Upon clicking it, we can view the HTML code for the webpage.
+It shows that the variable 'secret' is the correct query.
+It also shows a link to another file called "includes/secret.inc".
+
+Upon visiting the file, we get the following text in console "FOEIUWGHFEEUHOFUOIU".
+We enter this string in the input box given in the natas6 page, which gives us the password for natas7.
+```
+
+## Level 7
+
+* Credentials - Username: natas7; Password: 7z3hEENjQtflzgnT29q7wAvMNfZdh0i9; URL: <http://natas7.natas.labs.overthewire.org>
+
+* Solution -
+
+```markdown
+The webpage contains nothing but two hyperlinks, Home and About.
+Before going to the hyperlinks, we check the console for code.
+There is a comment in the code that says the password for natas8 is in the directory /etc/natas_webpass/natas8
+
+Now, once we visit the hyperlinks, we see that there is no special clue in both pages.
+Except that these pages are in the format of index.php?page=home and index.php?page=about, respectively.
+That means we can do path traversal here.
+Therefore, we remove the "home" from "page=home" and add the intended directory here.
+Therefore, upon visiting "/index.php?page=/etc/natas_webpass/natas8", we get the password for next level.
+```
+
+## Level 8
+
+* Credentials - Username: natas8; Password: DBfUBfqQG69KvJvJ1iAbMoIpwSNQ9bWe; URL: <http://natas8.natas.labs.overthewire.org>
+
+* Solution -
+
+```markdown
 ```
