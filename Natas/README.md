@@ -132,4 +132,83 @@ Therefore, upon visiting "/index.php?page=/etc/natas_webpass/natas8", we get the
 * Solution -
 
 ```markdown
+Similar to natas6, this page contains an input box, a submit button and a hyperlink to view source code.
+This time, the source code contains an encoded string, which on decoding will give us the password.
+The secret string is encoded in the following manner: bin2hex(strrev(base64_encode($secret))).
+
+Therefore, we have to first decode our string from hex, then reverse it, and finally decode it using base64.
+Given string is 3d3d516343746d4d6d6c315669563362.
+After going through the decoding process, we get "oubWYf2kBq" as the secret.
+We input the secret in the input box provided, following which we get our password.
+```
+
+## Level 9
+
+* Credentials - Username: natas9; Password: W0mMhUcRRnG8dcghE4qvk3JA9lGt8nDl; URL: <http://natas9.natas.labs.overthewire.org>
+
+* Solution -
+
+```markdown
+The page contains an input box acting as a search function. Along with that, we have a link to view the source code.
+Looking at the source code, we can discover vulnerabilities based on the code segments used.
+The source code contains usage of grep as well.
+Also, as the URL contains characters such as ? on submitting input query, we can attempt command injection here.
+So we can try to inject different commands until we get something.
+So, injecting the command ";pwd" shows us our current working directory, which is /var/www/natas/natas9
+So, if we inject the command ";cat /etc/natas_webpass/natas10", it gives us the password for the next level.
+```
+
+## Level 10
+
+* Credentials - Username: natas10; Password: nOpp1igQAkUzaI1GUUjzn1bFVj7xCNzu; URL: <http://natas10.natas.labs.overthewire.org>
+
+* Solution -
+
+```markdown
+Similar to natas9, but this webpage informs us that it filters certain characters for security. We can check the source code here as well.
+Even the code is similar to natas9, except the filter code.
+Again, we can attempt command injection here by trial-and-error.
+We cannot run shell commands directly, however we can do that under the pretext of searching using grep.
+So commands like "a /etc/natas_webpass/natas10" would work as the letter "a" is present in the password for natas10.
+So we can do similarly for natas11 using different characters until we get it.
+```
+
+## Level 11
+
+* Credentials - Username: natas11; Password: U82q5TCMMQ9xuFoI3dYX61s7OZD9JKoK; URL: <http://natas11.natas.labs.overthewire.org>
+
+* Solution -
+
+```markdown
+The text displays that cookies are encrypted with XOR encryption, following which there is an input to set background color using hexcodes, with a # symbol.
+There is also a link to view the source code of the webpage.
+The source code contains a lot of functions and we have to go through them in order to understand the logic used.
+The code shows that the name of one of the cookies in the webpage has been encrypted using multiple techniques as given in the code.
+The resource I'll be using for this is <https://gchq.github.io/CyberChef/>, which allows many operations for encoding and decoding.
+
+So, first we have to find the cookie name, which is "ClVLIh4ASCsCBE8lAxMacFMZV2hdVVotEhhUJQNVAmhSEV4sFxFeaAw%3D", could be base64.
+Passing it through the smart decode feature in Burp Suite, we get "ClVLIh4ASCsCBE8lAxMacFMZV2hdVVotEhhUJQNVAmhSEV4sFxFeaAw=".
+We base64_decode it, getting 'UK"..H+..O%...pS.Wh]UZ-..T%.U.hR.^,..^h.'.
+
+Also, the PHP code in source code shows that the data array processed through json_encode, xor_encrypt and base64_encode.
+Therefore, we first json_encode the array, which gives us '{"showpassword":"no","bgcolor":"#ffffff"}'
+
+Now we need to XOR the json_encode string and the base64_decode string, which gives us "qw8JAY8J]]8J\J.Jq@8Jqw8JMA8J\w.JqH8JHH8JSL."
+As we can notice, the repeating string here in the key is "qw8J" with variations, which can be considered as the key.
+
+Now, we have to again json_encode, xor_encrypt and base64_encode this string.
+During xor_encrypt, we have to make a modification in our array, from "no" to "yes", i.e., the array would now be '{"showpassword":"yes","bgcolor":"#ffffff"}'.
+Therefore, we do the xor_encrypt again to get the string 'UK"..H+..O%...pS.]9S[.(..W&...pST^,..^,S'.
+Using base64_decode, we get "ClVLIh4ASCsCBE8lAxMacFMOXTlTWxooFhRXJh4FGnBTVF4sFxFeLFMK".
+
+Now we can go ahead and replace the cookie data with this string, in order to get the password.
+```
+
+## Level 12
+
+* Credentials - Username: natas12; Password: EDXp0pS26wLKHZy1rDBPUZk0RKfLGIR3; URL: <http://natas12.natas.labs.overthewire.org>
+
+* Solution -
+
+```markdown
 ```
