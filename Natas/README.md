@@ -211,4 +211,50 @@ Now we can go ahead and replace the cookie data with this string, in order to ge
 * Solution -
 
 ```markdown
+The webpage allows us to upload a jpeg to upload with max 1 KB limit, and there is an option to view source code as well.
+The code shows that POST is used here to upload file.
+It also contains functions to generate a random path from filename.
+We can attempt to upload a file and use Burp Suite to intercept in order to see the response.
+
+After creating an image file of size less than 1 KB, we can upload it.
+The response collected from intercepting shows us the file-name and file-extension type.
+Now, we can modify it in such a manner that we can extract password for natas13 using PHP code.
+Therefore we change the file-name extension to 'php' and file-type to 'php', that is, replace all instances of 'jpeg' with 'php'.
+We add PHP code to display password:
+
+<?php echo passthru('cat /etc/natas_webpass/natas13');?>
+
+This will give the password for next level.
+```
+
+## Level 13
+
+* Credentials - Username: natas13; Password: jmLTY0qiPZBbaKc9341cqPQZBJv7MQbY; URL: <http://natas13.natas.labs.overthewire.org>
+
+* Solution -
+
+```markdown
+Similar to the previous webpage, but with a minor change - it allows only jpeg files now. We can still view the sourcecode.
+The code is similar to the previous one in natas12. It uses a PHP function called exif_imagetype to check type of image.
+This function checks the first few bytes of file to determine file type, hence we can attempt to bypass it.
+We can spoof it by including the first few bytes of file as same as jpeg file type.
+jpeg files use the notation "0xFFD8FFE0" so we can add that to our shell code.
+
+We can attempt to upload a jpeg file and use Burp Suite to intercept in order to modify the response.
+We can edit the response by modifying the instances of 'jpeg' with 'php'.
+Unlike the previous one, we won't remove the garbled data in the response as it will act as the header of the image file.
+We can add PHP shell code to it, after the header of the image file:
+
+<?php echo passthru('cat /etc/natas_webpass/natas14');?>
+
+This gives us the password for next level
+```
+
+## Level 14
+
+* Credentials - Username: natas14; Password: Lg96M10TdfaPyVBkJdjymbllQ5L6qdl1; URL: <http://natas14.natas.labs.overthewire.org>
+
+* Solution -
+
+```markdown
 ```
