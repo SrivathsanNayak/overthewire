@@ -257,4 +257,57 @@ This gives us the password for next level
 * Solution -
 
 ```markdown
+The webpage has fields for username and password, and an option to view the sourcecode.
+The sourcecode contains implementation of MySQL, hence we can attempt SQL injection here.
+
+Using double-quotes (") gives us an SQL error message. We can use this to attempt further entries to bypass the login page.
+Therefore, we can give username as user" or 1=1# and pwd as password" or 1=1#.
+
+When this is read in SQL, it is shown as username = "user" or 1=1#
+The double-quotes used end the username field. 1=1 is always true so it always gets executed.
+The pound-sign is used for commenting out anything written after that so we do not need the correct password.
+This gives us the password for the next level.
+```
+
+## Level 15
+
+* Credentials - Username: natas15; Password: AwWj0w5cvxrZiONgZ9J5stNVkmxdk39J; URL: <http://natas15.natas.labs.overthewire.org>
+
+* Solution -
+
+```markdown
+We are given an input field which allows us to enter an username and check if it exists. We can view the sourcecode too.
+Similar to the previous example, this uses SQL code as well.
+We can attempt SQL injection here.
+
+Entering double-quotes " shows that there is an error in query.
+However, when entering " or 1=1, it shows that this user exists.
+Similarly, entering the text "UNION SELECT username, password from users# also shows that the user exists.
+On entering natas16, we get that user exists and this is the user for which the password is required.
+
+Now, the database still does not give any useful response to the queries entered, so we can attempt to exploit blind vulnerabilities here.
+Based on the true or false response, we can try getting the password.
+
+We can start off by finding the number of columns by entering "UNION ALL SELECT 1;# and if this statement gives false, we can add another column to it.
+So, entering "UNION ALL SELECT 1,2;# gives us a true response. Hence there are two columns in the table users.
+We can confirm this by entering "UNION ALL SELECT 1,2 FROM users;# and it will give us a positive response.
+This information can be verified from sourcecode as well, as it contains columns for username and password.
+
+Now, in order to get the password, we can try brute-force using Burp-Suite.
+The command that we want to enter is "UNION ALL SELECT 1,2 FROM users WHERE username = "natas16" AND substring(password,1,1) = BINARY "a";#
+In brute-force, we have to change the characters (include lowercase and uppercase letters and numbers) and the substring position for each attempt.
+BINARY is added in order to identify uppercase and lowercase separately as SQL doesn't do that by default.
+
+Burp Suite allows brute-forcing by adding markers around the characters we want to modify. This can be done in the Intruder section.
+The process will take a lot of time to complete, but once completed, it will give us the characters for the password.
+We can concatenate them in order to get the password for natas16.
+```
+
+## Level 16
+
+* Credentials - Username: natas16; Password: WaIHEacj63wnNIBROHeqi3p9t0m5nhmh; URL: <http://natas16.natas.labs.overthewire.org>
+
+* Solution -
+
+```markdown
 ```
