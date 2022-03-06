@@ -310,4 +310,7 @@ We can concatenate them in order to get the password for natas16.
 * Solution -
 
 ```markdown
+Similar to natas10, this contains an input to search words. It has more filters this time and we can view the sourcecode too.
+In the sourcecode, we can see all the blocked characters. We have to inject commands without using those characters then.
+As we can still use characters like brackets, we can try to use subshell to execute the commands.
 ```
